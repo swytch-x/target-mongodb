@@ -8,7 +8,7 @@ import requests
 import urllib.parse
 
 import pymongo
-ß
+
 class MongoDbSink(BatchSink):
     """MongoDB target sink class."""
 
