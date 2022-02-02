@@ -16,7 +16,10 @@ pipx install target-mongodb
 
 ### Accepted Config Options
 
-- [ ] `Developer TODO:` Provide a list of config options accepted by the target.
+The target requires the following two parameters:
+
+- connection_string - expects a MongoDB srv syntax
+- db_name - the database where to insert the records
 
 A full list of supported settings and capabilities for this
 target is available by running:
