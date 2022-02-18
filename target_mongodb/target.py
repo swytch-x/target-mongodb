@@ -21,3 +21,6 @@ class TargetMongoDb(Target):
         th.Property("db_name", th.StringType, required=True)
     ).to_dict()
     default_sink_class = MongoDbSink
+
+if __name__ == '__main__':
+    TargetMongoDb.cli()    
