@@ -40,7 +40,7 @@ class MongoDbSink(BatchSink):
                 record.pop("_id")
 
             # Last parameter True is upsert which inserts a new record if it doesnt exists or replaces current if found
-            db[collection].replace_one({primary_id: find_id}, record, True)
+            db[collection].update_one({primary_id: find_id}, {"$set": record}, True)
 
         self.logger.info(f"Uploaded {len(records)} records into {collection}")
 
