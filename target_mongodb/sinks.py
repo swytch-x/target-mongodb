@@ -30,17 +30,21 @@ class MongoDbSink(BatchSink):
         db = client[db_name]
 
         records = context["records"]
-        primary_id = self.key_properties[0]
 
-        for record in records:
-            find_id = record[primary_id]
-            # pop the key from update if primary key is _id
-            if primary_id == '_id':
-                find_id = ObjectId(find_id)
-                record.pop("_id")
+        if len(self.key_properties) > 0:
+            primary_id = self.key_properties[0]
 
-            # Last parameter True is upsert which inserts a new record if it doesnt exists or replaces current if found
-            db[collection].update_one({primary_id: find_id}, {"$set": record}, True)
+            for record in records:
+                find_id = record[primary_id]
+                # pop the key from update if primary key is _id
+                if primary_id == '_id':
+                    find_id = ObjectId(find_id)
+                    record.pop("_id")
+
+                # Last parameter True is upsert which inserts a new record if it doesnt exists or replaces current if found
+                db[collection].update_one({primary_id: find_id}, {"$set": record}, True)
+        else:
+            db[collection].insert_many(records)
 
         self.logger.info(f"Uploaded {len(records)} records into {collection}")
 
