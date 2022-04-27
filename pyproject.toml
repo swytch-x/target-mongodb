@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "target-mongodb"
-version = "0.0.3"
+version = "0.0.4"
 description = "`target-mongodb` is a Singer target for MongoDB, built with the Meltano SDK for Singer Targets."
 authors = ["hotglue"]
 license = "Apache 2.0"

@@ -36,9 +36,15 @@ class MongoDbSink(BatchSink):
 
             for record in records:
                 find_id = record[primary_id]
+
                 # pop the key from update if primary key is _id
                 if primary_id == '_id':
-                    find_id = ObjectId(find_id)
+                    try:
+                        find_id = ObjectId(find_id)
+                    except:
+                        self.logger.warn(f"Malformed id: {find_id}. Skipping this record.")
+                        continue
+
                     record.pop("_id")
 
                 # Last parameter True is upsert which inserts a new record if it doesnt exists or replaces current if found
