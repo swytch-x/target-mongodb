@@ -13,7 +13,7 @@ from bson.objectid import ObjectId
 class MongoDbSink(BatchSink):
     """MongoDB target sink class."""
 
-    max_size = 10
+    max_size = 100000
 
     def process_batch(self, context: dict) -> None:
         """Write out any prepped records and return once fully written."""
